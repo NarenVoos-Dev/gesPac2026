@@ -1,0 +1,50 @@
+/* ============================================
+   ESTILOS GLOBALES - SISTEMA DE GESTIÓN MÉDICA
+   ============================================ */
+
+/* Quitar borde azul de focus en todos los inputs de Quasar */
+.q-field--focused .q-field__control {
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+.q-field--focused .q-field__control:after {
+    display: none !important;
+}
+
+.q-field--outlined.q-field--focused .q-field__control:before {
+    border-color: #4caf50 !important;
+    border-width: 1px !important;
+}
+
+.q-field--outlined .q-field__control:before {
+    border-color: rgba(0, 0, 0, 0.24);
+}
+
+/* Eliminar cualquier outline del input nativo */
+input,
+textarea,
+select {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+/* Quitar outline de botones */
+button:focus,
+.q-btn:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+/* Quitar outline de elementos interactivos */
+a:focus,
+.q-item:focus {
+    outline: none !important;
+}
