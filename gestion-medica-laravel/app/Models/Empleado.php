@@ -59,7 +59,13 @@ class Empleado extends Model
         return $this->belongsTo(TipoDocumento::class, 'tipo_documento_id');
     }
 
-    // Relación: Cargos (muchos a muchos)
+    // Relación: Cargo directo (campo cargo_id)
+    public function cargo()
+    {
+        return $this->belongsTo(Cargo::class, 'cargo_id');
+    }
+
+    // Relación: Cargos (muchos a muchos - tabla pivot)
     public function cargos()
     {
         return $this->belongsToMany(Cargo::class, 'empleado_cargo')
@@ -67,15 +73,14 @@ class Empleado extends Model
             ->withTimestamps();
     }
 
-    // Relación: Cargo principal
+    // Relación: Cargo principal (desde tabla pivot)
     public function cargoPrincipal()
     {
         return $this->belongsToMany(Cargo::class, 'empleado_cargo')
             ->wherePivot('es_principal', true)
             ->wherePivotNull('fecha_fin')
             ->withPivot('es_principal', 'fecha_asignacion', 'fecha_fin', 'observaciones')
-            ->withTimestamps()
-            ->latest('empleado_cargo.created_at');
+            ->withTimestamps();
     }
 
     // Relación: Especialidades (muchos a muchos - para profesionales)
@@ -129,12 +134,9 @@ class Empleado extends Model
         return $query->withoutGlobalScope('active');
     }
 
-    public function scopeConCargo($query, $codigoCargo)
+    public function scopeConCargo($query, $cargoId)
     {
-        return $query->whereHas('cargos', function ($q) use ($codigoCargo) {
-            $q->where('codigo', $codigoCargo)
-              ->wherePivotNull('fecha_fin');
-        });
+        return $query->where('cargo_id', $cargoId);
     }
 
     // Métodos de ayuda
@@ -162,7 +164,7 @@ class Empleado extends Model
         // Si es principal, marcar otros como no principales
         if ($esPrincipal) {
             $this->cargos()->updateExistingPivot(
-                $this->cargos()->pluck('id')->toArray(),
+                $this->cargos()->pluck('cargos.id')->toArray(),
                 ['es_principal' => false]
             );
         }

@@ -13,7 +13,8 @@ class TipoDocumentoController extends Controller
      */
     public function index()
     {
-        $tiposDocumento = TipoDocumento::withInactive()->orderBy('codigo')->get();
+        // Solo activos por defecto (gracias al global scope en el modelo)
+        $tiposDocumento = TipoDocumento::orderBy('codigo')->get();
         return response()->json($tiposDocumento);
     }
 

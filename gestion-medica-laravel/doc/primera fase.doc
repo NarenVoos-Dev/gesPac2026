@@ -1,238 +1,202 @@
-🚀 Guía de Instalación: Laravel + Vue 3 + Quasar Framework
-✅ Proyecto Creado Exitosamente
-Ubicación: c:\xampp\htdocs\gesPac\gestion-medica-laravel
+Plan de Implementación - Por Módulos Completos
+Orden de Implementación
+Vamos a implementar en este orden (de dependencias a módulos principales):
 
-📦 Stack Tecnológico
-Backend: Laravel 12
-Frontend: Vue 3 + Composition API
-SPA Framework: Inertia.js (SPA sin API REST)
-UI Framework: Quasar Framework 2.x
-Build Tool: Vite 7
-Autenticación: Laravel Breeze
-Routing: Ziggy (rutas de Laravel en Vue)
-🔧 Pasos de Instalación Completados
-1. Crear Proyecto Laravel
-composer create-project laravel/laravel gestion-medica-laravel
-2. Instalar Laravel Breeze
-cd gestion-medica-laravel
-composer require laravel/breeze --dev
-php artisan breeze:install vue
-3. Instalar Dependencias de Node
-npm install --legacy-peer-deps
-4. Instalar Quasar Framework
-npm install quasar @quasar/extras --legacy-peer-deps
-npm install -D vite-plugin-vue-devtools quasar @quasar/vite-plugin --legacy-peer-deps
-⚙️ Archivos Configurados
-vite.config.js
-import { defineConfig } from 'vite';
-import laravel from 'laravel-vite-plugin';
-import vue from '@vitejs/plugin-vue';
-import { quasar, transformAssetUrls } from '@quasar/vite-plugin';
-export default defineConfig({
-    plugins: [
-        laravel({
-            input: 'resources/js/app.js',
-            refresh: true,
-        }),
-        vue({
-            template: {
-                transformAssetUrls,
-            },
-        }),
-        quasar({
-            sassVariables: 'resources/css/quasar-variables.sass'
-        }),
-    ],
+Módulo Cargos (Dependencia - Simple)
+Módulo Especialidades (Dependencia - Simple)
+Módulo Empleados (Principal - Complejo)
+Módulo Usuarios (Principal - Complejo)
+📦 MÓDULO 1: CARGOS
+Backend
+ Crear CargoController.php
+index()
+ - Listar todos los cargos
+store()
+ - Crear cargo
+update()
+ - Actualizar cargo
+destroy()
+ - Desactivar cargo
+ Crear rutas en 
+web.php
+Route::middleware(['auth'])->group(function () {
+    Route::resource('cargos', CargoController::class);
 });
-resources/js/app.js
-import '../css/app.css';
-import './bootstrap';
-import { createInertiaApp } from '@inertiajs/vue3';
-import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
-import { createApp, h } from 'vue';
-import { ZiggyVue } from '../../vendor/tightenco/ziggy';
-// Quasar imports
-import { Quasar, Notify, Dialog, Loading } from 'quasar';
-import '@quasar/extras/material-icons/material-icons.css';
-import 'quasar/dist/quasar.css';
-const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
-createInertiaApp({
-    title: (title) => `${title} - ${appName}`,
-    resolve: (name) =>
-        resolvePageComponent(
-            `./Pages/${name}.vue`,
-            import.meta.glob('./Pages/**/*.vue'),
-        ),
-    setup({ el, App, props, plugin }) {
-        return createApp({ render: () => h(App, props) })
-            .use(plugin)
-            .use(ZiggyVue)
-            .use(Quasar, {
-                plugins: {
-                    Notify,
-                    Dialog,
-                    Loading,
-                },
-                config: {
-                    notify: {},
-                    loading: {},
-                }
-            })
-            .mount(el);
-    },
-    progress: {
-        color: '#4B5563',
-    },
-});
-resources/css/quasar-variables.sass
-// Quasar SASS/SCSS Variables
-$primary   : #1976D2
-$secondary : #26A69A
-$accent    : #9C27B0
-$dark      : #1D1D1D
-$dark-page : #121212
-$positive  : #21BA45
-$negative  : #C10015
-$info      : #31CCEC
-$warning   : #F2C037
-🚀 Comandos para Ejecutar el Proyecto
-Desarrollo (Frontend)
-npm run dev
-Esto iniciará Vite en http://localhost:5173/
+Frontend
+ Crear resources/js/Pages/Configuracion/Components/CargosComponent.vue
+Tabla de cargos
+Formulario crear/editar
+Botón desactivar
+Filtros (activos/inactivos)
+Integración
+ Agregar tab "Cargos" en 
+Configuracion/Index.vue
+ Probar CRUD completo
+📦 MÓDULO 2: ESPECIALIDADES
+Backend
+ Crear EspecialidadController.php
+index()
+ - Listar especialidades
+store()
+ - Crear especialidad
+update()
+ - Actualizar especialidad
+destroy()
+ - Desactivar especialidad
+ Crear rutas en 
+web.php
+Route::resource('especialidades', EspecialidadController::class);
+Frontend
+ Crear resources/js/Pages/Configuracion/Components/EspecialidadesComponent.vue
+Tabla de especialidades
+Formulario crear/editar
+Botón desactivar
+Filtros
+Integración
+ Agregar tab "Especialidades" en 
+Configuracion/Index.vue
+ Probar CRUD completo
+📦 MÓDULO 3: EMPLEADOS (Principal)
+Backend
+ Crear EmpleadoController.php
 
-Desarrollo (Backend)
-En otra terminal:
+CRUD Básico:
 
-php artisan serve
-Esto iniciará Laravel en http://localhost:8000
+index()
+ - Listar empleados con filtros
+store()
+ - Crear empleado (+ usuario opcional)
+show()
+ - Ver empleado
+update()
+ - Actualizar empleado
+destroy()
+ - Desactivar empleado
+Asignaciones:
 
-Acceder a la Aplicación
-Abre tu navegador en: http://localhost:8000
+asignarCargo()
+ - Asignar cargo a empleado
+asignarEspecialidades() - Asignar especialidades (profesionales)
+asignarAgentes() - Asignar agentes a visitador
+asignarProfesionales() - Asignar profesionales a visitador
+obtenerVisitadores() - Obtener visitadores de un agente
+obtenerProfesionales() - Obtener profesionales de un visitador
+ Crear rutas en 
+web.php
 
-🗄️ Configuración de Base de Datos
-Opción 1: SQLite (Por defecto - Ya configurado)
-Laravel viene configurado con SQLite por defecto. Las migraciones ya se ejecutaron.
+Route::resource('empleados', EmpleadoController::class);
+Route::post('empleados/{id}/asignar-cargo', [EmpleadoController::class, 'asignarCargo']);
+Route::post('empleados/{id}/asignar-especialidades', [EmpleadoController::class, 'asignarEspecialidades']);
+Route::post('empleados/{id}/asignar-agentes', [EmpleadoController::class, 'asignarAgentes']);
+Route::post('empleados/{id}/asignar-profesionales', [EmpleadoController::class, 'asignarProfesionales']);
+Route::get('empleados/{id}/visitadores', [EmpleadoController::class, 'obtenerVisitadores']);
+Route::get('empleados/{id}/profesionales', [EmpleadoController::class, 'obtenerProfesionales']);
+Frontend
+ Crear resources/js/Pages/Configuracion/Components/EmpleadosComponent.vue
+Tabla de empleados:
 
-Opción 2: MySQL
-Si prefieres usar MySQL, edita el archivo .env:
+Columnas: Nombre, Documento, Cargo, Email, Teléfono, Estado
+Filtros: Por cargo, estado (activo/inactivo)
+Búsqueda
+Formulario Crear/Editar:
 
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=gestion_medica_db
-DB_USERNAME=root
-DB_PASSWORD=
-Luego ejecuta:
+Información personal
+Selector de cargo
+Checkbox "Crear usuario"
+Si crea usuario: email corporativo + selector de rol
+Diálogo de Asignaciones:
 
-php artisan migrate:fresh
-📝 Crear un Usuario de Prueba
-php artisan tinker
-Dentro de tinker:
+Sección "Agentes Asignados" (si es visitador)
+Sección "Visitadores Asignados" (si es agente)
+Sección "Profesionales Asignados" (si es visitador)
+Sección "Especialidades" (si es profesional)
+Chips visuales con botón eliminar
+Integración
+ Agregar tab "Empleados" en 
+Configuracion/Index.vue
+ Probar CRUD completo
+ Probar asignaciones
+ Probar creación de usuario automática
+📦 MÓDULO 4: USUARIOS
+Backend
+ Crear UserController.php
 
-\App\Models\User::factory()->create([
-    'name' => 'Admin',
-    'email' => 'admin@test.com',
-    'password' => bcrypt('password')
-]);
-Credenciales de acceso:
+CRUD Básico:
 
-Email: admin@test.com
-Password: password
-🎨 Componentes de Quasar Disponibles
-El proyecto ya incluye ejemplos de:
+index()
+ - Listar usuarios
+store()
+ - Crear usuario (vinculado a empleado)
+update()
+ - Actualizar usuario
+destroy()
+ - Desactivar usuario
+Roles y Asignaciones:
 
-✅ q-card - Tarjetas
-✅ q-btn - Botones
-✅ q-icon - Iconos Material
-✅ q-list - Listas
-✅ q-badge - Badges
-✅ q-notify - Notificaciones
-✅ q-dialog - Diálogos
-✅ q-loading - Loading
-Ver más componentes en: https://quasar.dev/vue-components
+asignarRol() - Asignar rol Spatie
+asignarVisitadores() - Asignar visitadores a agente
+obtenerVisitadores() - Obtener visitadores de agente
+ Crear rutas en 
+web.php
 
-📂 Estructura del Proyecto
-gestion-medica-laravel/
-├── app/
-│   ├── Http/
-│   │   └── Controllers/     # Controladores Laravel
-│   └── Models/              # Modelos Eloquent
-├── resources/
-│   ├── js/
-│   │   ├── Pages/           # Páginas Vue (Inertia)
-│   │   ├── Components/      # Componentes Vue reutilizables
-│   │   ├── Layouts/         # Layouts de la aplicación
-│   │   └── app.js           # Punto de entrada Vue
-│   └── css/
-│       ├── app.css          # Estilos Tailwind
-│       └── quasar-variables.sass  # Variables Quasar
-├── routes/
-│   └── web.php              # Rutas de la aplicación
-├── database/
-│   └── migrations/          # Migraciones de base de datos
-├── vite.config.js           # Configuración Vite
-└── package.json             # Dependencias Node
-🎯 Próximos Pasos
-1. Crear Modelos y Migraciones
-php artisan make:model Paciente -m
-php artisan make:model Profesional -m
-php artisan make:model Prescripcion -m
-2. Crear Controladores
-php artisan make:controller PacienteController --resource
-php artisan make:controller ProfesionalController --resource
-3. Crear Páginas Vue
-Crear archivos en resources/js/Pages/:
+Route::resource('usuarios', UserController::class);
+Route::post('usuarios/{id}/asignar-rol', [UserController::class, 'asignarRol']);
+Route::post('usuarios/{id}/asignar-visitadores', [UserController::class, 'asignarVisitadores']);
+Route::get('usuarios/{id}/visitadores', [UserController::class, 'obtenerVisitadores']);
+Frontend
+ Crear resources/js/Pages/Usuarios/Index.vue
+ Crear resources/js/Pages/Usuarios/Components/UsuariosComponent.vue
+Tabla de usuarios:
 
-Pacientes/Index.vue
-Pacientes/Create.vue
-Pacientes/Edit.vue
-4. Definir Rutas
-En routes/web.php:
+Columnas: Nombre (del empleado), Email, Rol, Estado, Último acceso
+Filtros: Por rol, estado
+Formulario Crear/Editar:
 
-use App\Http\Controllers\PacienteController;
-Route::resource('pacientes', PacienteController::class)
-    ->middleware(['auth', 'verified']);
-🔥 Comandos Útiles
-Limpiar caché
-php artisan cache:clear
-php artisan config:clear
-php artisan route:clear
-php artisan view:clear
-Regenerar archivos de configuración
-php artisan config:cache
-php artisan route:cache
-Compilar para producción
-npm run build
-📚 Documentación Oficial
-Laravel: https://laravel.com/docs
-Vue 3: https://vuejs.org/guide/introduction.html
-Inertia.js: https://inertiajs.com/
-Quasar: https://quasar.dev/
-Vite: https://vitejs.dev/
-✨ Características del Stack
-Laravel + Inertia.js
-✅ SPA sin necesidad de crear API REST
-✅ Rutas de Laravel disponibles en Vue (Ziggy)
-✅ Autenticación integrada (Breeze)
-✅ Validación de formularios en servidor
-✅ Compartir datos entre vistas
-Quasar Framework
-✅ +80 componentes premium
-✅ Responsive por defecto
-✅ Dark mode integrado
-✅ Iconos Material Design
-✅ Sistema de notificaciones
-✅ Diálogos y modales
-✅ Formularios avanzados
-✅ Tablas con paginación
-🎉 ¡Todo Listo!
-Tu proyecto está configurado y listo para comenzar a desarrollar.
+Selector de empleado (solo empleados sin usuario)
+Email
+Password (solo al crear)
+Selector de rol (Spatie)
+Estado activo/inactivo
+Sección Visitadores (solo para agentes):
 
-Para iniciar el desarrollo:
-
-Terminal 1: npm run dev
-Terminal 2: php artisan serve
-Navegador: http://localhost:8000
-Login: Registra un usuario o usa el creado con tinker.
-
-¡Feliz desarrollo! 🚀
+Lista de visitadores asignados
+Botón agregar visitador
+Chips visuales
+Integración
+ Agregar opción "Usuarios" al sidebar
+ Aplicar middleware de permisos (solo admin)
+ Probar CRUD completo
+ Probar asignación de roles
+ Probar asignación de visitadores
+🎯 Resumen del Orden
+1. Cargos (Backend + Frontend)
+   ↓
+2. Especialidades (Backend + Frontend)
+   ↓
+3. Empleados (Backend + Frontend + Asignaciones)
+   ↓
+4. Usuarios (Backend + Frontend + Roles)
+✅ Checklist por Módulo
+Módulo Cargos
+ Backend completo
+ Frontend completo
+ Integrado en Configuración
+ Probado
+Módulo Especialidades
+ Backend completo
+ Frontend completo
+ Integrado en Configuración
+ Probado
+Módulo Empleados
+ Backend completo
+ Frontend completo
+ Diálogos de asignación
+ Integrado en Configuración
+ Probado
+Módulo Usuarios
+ Backend completo
+ Frontend completo
+ Sidebar actualizado
+ Middleware aplicado
+ Probado
+¿Comenzamos con el Módulo Cargos? 🚀

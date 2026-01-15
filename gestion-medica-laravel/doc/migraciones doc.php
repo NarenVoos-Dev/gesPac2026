@@ -143,9 +143,6 @@ Schema::create('prescripciones', function (Blueprint $table) {
     $table->foreignId('profesional_id')->constrained('profesionales');
     $table->text('diagnostico')->nullable();
     $table->text('indicaciones')->nullable();
-    $table->decimal('subtotal', 10, 2)->default(0);
-    $table->decimal('comision_total', 10, 2)->default(0);
-    $table->decimal('total', 10, 2)->default(0);
     $table->enum('estado', ['pendiente', 'parcial', 'cancelada', 'finalizada'])->default('pendiente');
     $table->text('observaciones')->nullable();
     $table->foreignId('created_by')->nullable()->constrained('users');
@@ -159,11 +156,6 @@ Schema::create('prescripcion_detalles', function (Blueprint $table) {
     $table->foreignId('prescripcion_id')->constrained('prescripciones')->onDelete('cascade');
     $table->foreignId('producto_id')->constrained('productos');
     $table->integer('cantidad');
-    $table->decimal('precio_unitario', 10, 2);
-    $table->decimal('subtotal', 10, 2);
-    $table->decimal('comision_porcentaje', 5, 2);
-    $table->decimal('comision_monto', 10, 2);
-    $table->text('indicaciones')->nullable();
     $table->timestamps();
 });
 🚚 Módulo de Entregas

@@ -1,5 +1,5 @@
 <template>
-    <Head title="Roles y Permisos" />
+    <Head title="Usuarios" />
 
     <AuthenticatedLayout>
         <q-page class="friendly-page">
@@ -37,8 +37,8 @@
                                     </q-breadcrumbs-el>
 
                                     <q-breadcrumbs-el
-                                        label="Roles y Permisos"
-                                        icon="admin_panel_settings"
+                                        label="Usuarios"
+                                        icon="people"
                                         class="breadcrumb-current"
                                     />
                                 </q-breadcrumbs>
@@ -69,11 +69,11 @@
                                     </q-breadcrumbs-el>
 
                                     <q-breadcrumbs-el 
-                                        icon="admin_panel_settings"
+                                        icon="people"
                                         class="mobile-breadcrumb active"
                                     >
                                         <q-tooltip class="friendly-tooltip" :offset="[0, 8]">
-                                            Roles y Permisos
+                                            Usuarios
                                         </q-tooltip>
                                     </q-breadcrumbs-el>
                                 </q-breadcrumbs>
@@ -82,32 +82,12 @@
                     </q-card>
                 </div>
 
-                <!-- CONTENIDO PRINCIPAL CON TABS -->
+                <!-- CONTENIDO PRINCIPAL -->
                 <div class="content-container">
                     <q-card flat bordered class="content-card">
-                        <q-tabs
-                            v-model="tab"
-                            dense
-                            class="text-grey"
-                            active-color="primary"
-                            indicator-color="primary"
-                            align="justify"
-                        >
-                            <q-tab name="roles" icon="badge" label="Roles" />
-                            <q-tab name="permissions" icon="lock" label="Permisos" />
-                        </q-tabs>
-
-                        <q-separator />
-
-                        <q-tab-panels v-model="tab" animated>
-                            <q-tab-panel name="roles">
-                                <RolesComponent />
-                            </q-tab-panel>
-
-                            <q-tab-panel name="permissions">
-                                <PermissionsComponent />
-                            </q-tab-panel>
-                        </q-tab-panels>
+                        <q-card-section class="q-pa-md">
+                            <UsuariosComponent />
+                        </q-card-section>
                     </q-card>
                 </div>
             </div>
@@ -116,13 +96,9 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import RolesComponent from './Components/RolesComponent.vue';
-import PermissionsComponent from './Components/PermissionsComponent.vue';
+import UsuariosComponent from './Components/UsuariosComponent.vue';
 import { Head } from '@inertiajs/vue3';
-
-const tab = ref('roles');
 </script>
 
 <style scoped>

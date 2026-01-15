@@ -15,14 +15,27 @@
 
                 <q-toolbar-title class="text-weight-medium">
                     <div class="row items-center">
-                        <q-icon name="local_hospital" size="28px" color="green-5" class="q-mr-xs" />
-                        <span class="text-grey-9 text-weight-medium">GesPac</span>
+                        <q-icon
+                            name="local_hospital"
+                            size="28px"
+                            color="green-5"
+                            class="q-mr-xs"
+                        />
+                        <span class="text-grey-9 text-weight-medium"
+                            >GesPac</span
+                        >
                     </div>
                 </q-toolbar-title>
 
                 <div class="q-gutter-sm row items-center no-wrap">
                     <!-- Notificaciones -->
-                    <q-btn flat round dense icon="notifications_none" class="text-grey-7">
+                    <q-btn
+                        flat
+                        round
+                        dense
+                        icon="notifications_none"
+                        class="text-grey-7"
+                    >
                         <q-badge color="negative" floating rounded>3</q-badge>
                         <q-tooltip>Notificaciones</q-tooltip>
                     </q-btn>
@@ -30,20 +43,34 @@
                     <!-- Usuario -->
                     <q-btn flat round dense class="q-ml-sm">
                         <q-avatar size="36px" class="shadow-2">
-                            <img src="https://cdn.quasar.dev/img/avatar.png">
+                            <img src="https://cdn.quasar.dev/img/avatar.png" />
                         </q-avatar>
-                        
+
                         <q-menu auto-close>
-                            <q-list style="min-width: 220px" class="rounded-borders">
+                            <q-list
+                                style="min-width: 220px"
+                                class="rounded-borders"
+                            >
                                 <q-item class="q-pa-md">
                                     <q-item-section avatar>
                                         <q-avatar size="48px">
-                                            <img src="https://cdn.quasar.dev/img/avatar.png">
+                                            <img
+                                                src="https://cdn.quasar.dev/img/avatar.png"
+                                            />
                                         </q-avatar>
                                     </q-item-section>
                                     <q-item-section>
-                                        <q-item-label class="text-weight-medium">{{ user?.name || 'Usuario' }}</q-item-label>
-                                        <q-item-label caption class="text-grey-6">{{ user?.email }}</q-item-label>
+                                        <q-item-label
+                                            class="text-weight-medium"
+                                            >{{
+                                                user?.name || "Usuario"
+                                            }}</q-item-label
+                                        >
+                                        <q-item-label
+                                            caption
+                                            class="text-grey-6"
+                                            >{{ user?.email }}</q-item-label
+                                        >
                                     </q-item-section>
                                 </q-item>
 
@@ -51,26 +78,42 @@
 
                                 <q-item clickable v-ripple class="rounded-item">
                                     <q-item-section avatar>
-                                        <q-icon name="person_outline" color="grey-7" />
+                                        <q-icon
+                                            name="person_outline"
+                                            color="grey-7"
+                                        />
                                     </q-item-section>
                                     <q-item-section>Mi Perfil</q-item-section>
                                 </q-item>
 
                                 <q-item clickable v-ripple class="rounded-item">
                                     <q-item-section avatar>
-                                        <q-icon name="settings" color="grey-7" />
+                                        <q-icon
+                                            name="settings"
+                                            color="grey-7"
+                                        />
                                     </q-item-section>
-                                    <q-item-section>Configuración</q-item-section>
+                                    <q-item-section
+                                        >Configuración</q-item-section
+                                    >
                                 </q-item>
 
                                 <q-separator class="q-my-none" />
 
                                 <q-item clickable v-ripple class="rounded-item">
                                     <q-item-section avatar>
-                                        <q-icon name="logout" color="negative" />
+                                        <q-icon
+                                            name="logout"
+                                            color="negative"
+                                        />
                                     </q-item-section>
                                     <q-item-section>
-                                        <Link :href="route('logout')" method="post" as="button" class="text-negative text-weight-medium">
+                                        <Link
+                                            :href="route('logout')"
+                                            method="post"
+                                            as="button"
+                                            class="text-negative text-weight-medium"
+                                        >
                                             Cerrar Sesión
                                         </Link>
                                     </q-item-section>
@@ -96,17 +139,28 @@
                 <div class="sidebar-header">
                     <div class="row items-center justify-between q-pa-md">
                         <div class="row items-center">
-                            <q-icon name="local_hospital" size="32px" color="green-5" class="q-mr-sm" />
+                            <q-icon
+                                name="local_hospital"
+                                size="32px"
+                                color="green-5"
+                                class="q-mr-sm"
+                            />
                             <div>
-                                <div class="text-h6 text-grey-9 text-weight-bold">GesPac</div>
-                                <div class="text-caption text-grey-6">Gestion de Pacientes</div>
+                                <div
+                                    class="text-h6 text-grey-9 text-weight-bold"
+                                >
+                                    GesPac
+                                </div>
+                                <div class="text-caption text-grey-6">
+                                    Gestion de Pacientes
+                                </div>
                             </div>
                         </div>
-                        <q-btn 
-                            flat 
-                            round 
-                            dense 
-                            icon="close" 
+                        <q-btn
+                            flat
+                            round
+                            dense
+                            icon="close"
                             @click="toggleLeftDrawer"
                             class="text-grey-7"
                         >
@@ -118,7 +172,6 @@
 
                 <!-- Menú de navegación -->
                 <q-list class="q-pa-md q-gutter-y-xs">
-
                     <template v-for="(item, index) in menuItems" :key="index">
                         <q-item
                             clickable
@@ -126,20 +179,24 @@
                             :active="isActiveRoute(item.route)"
                             :href="route(item.route)"
                             class="menu-item"
-                            :class="{ 'menu-item-active': isActiveRoute(item.route) }"
+                            :class="{
+                                'menu-item-active': isActiveRoute(item.route),
+                            }"
                         >
                             <q-item-section avatar>
                                 <q-icon :name="item.icon" size="22px" />
                             </q-item-section>
 
                             <q-item-section>
-                                <q-item-label class="text-weight-medium">{{ item.title }}</q-item-label>
+                                <q-item-label class="text-weight-medium">{{
+                                    item.title
+                                }}</q-item-label>
                             </q-item-section>
                         </q-item>
 
-                        <q-separator 
-                            v-if="item.separator" 
-                            class="q-my-md q-mx-md" 
+                        <q-separator
+                            v-if="item.separator"
+                            class="q-my-md q-mx-md"
                         />
                     </template>
                 </q-list>
@@ -160,8 +217,8 @@
     </q-layout>
 </template>
 <script setup>
-import { ref, computed } from 'vue';
-import { Link, usePage } from '@inertiajs/vue3';
+import { ref, computed } from "vue";
+import { Link, usePage } from "@inertiajs/vue3";
 
 const page = usePage();
 const leftDrawerOpen = ref(false);
@@ -170,45 +227,79 @@ const leftDrawerOpen = ref(false);
 const user = computed(() => page.props.auth?.user);
 
 // Menú de navegación
-const menuItems = [
+// Menú de navegación
+const allMenuItems = [
     {
-        title: 'Dashboard',
-        icon: 'dashboard',
-        route: 'dashboard',
-        separator: true
+        title: "Dashboard",
+        icon: "dashboard",
+        route: "dashboard",
+        separator: true,
+        permission: null, // Acceso público (autenticado)
     },
     {
-        title: 'Pacientes',
-        icon: 'people',
-        route: 'pacientes.index'
+        title: "Pacientes",
+        icon: "people",
+        route: "pacientes.index",
+        permission: "pacientes.ver",
     },
     {
-        title: 'Prescripciones',
-        icon: 'medical_services',
-        route: 'prescripciones.index'
+        title: "Prescripciones",
+        icon: "medical_services",
+        route: "prescripciones.index",
+        permission: "prescripciones.ver",
     },
     {
-        title: 'Cuentas por Pagar',
-        icon: 'payments',
-        route: 'cuentas-pagar.index'
+        title: "Entregas",
+        icon: "local_shipping",
+        route: "entregas.index",
+        permission: "prescripciones.ver", // Usar mismo permiso temporalmente
     },
     {
-        title: 'Cuentas por Cobrar',
-        icon: 'account_balance_wallet',
-        route: 'cuentas-cobrar.index',
-        separator: true
+        title: "Cuentas por Pagar",
+        icon: "payments",
+        route: "cuentas-pagar.index",
+        permission: "cuentas_pagar.ver",
     },
     {
-        title: 'Configuración',
-        icon: 'settings',
-        route: 'configuracion.index'
+        title: "Cuentas por Cobrar",
+        icon: "account_balance_wallet",
+        route: "cuentas-cobrar.index",
+        permission: "cuentas_cobrar.ver",
+        separator: true,
     },
     {
-        title: 'Roles y Permisos',
-        icon: 'admin_panel_settings',
-        route: 'roles.index'
-    }
+        title: "Configuración",
+        icon: "settings",
+        route: "configuracion.index",
+        permission: "configuracion.ver",
+    },
+    {
+        title: "Usuarios",
+        icon: "people",
+        route: "usuarios.index",
+        permission: "usuarios.ver",
+    },
+    {
+        title: "Roles y Permisos",
+        icon: "admin_panel_settings",
+        route: "roles.index",
+        permission: "roles.ver",
+    },
 ];
+
+// Helper para verificar permisos
+const can = (permission) => {
+    if (!permission) return true; // Si no requiere permiso, mostrar
+    const user = page.props.auth?.user;
+    if (!user) return false;
+    if (user.is_super_admin) return true; // Super admin ve todo
+    return user.permissions?.includes(permission);
+};
+
+// Items del menú filtrados
+const menuItems = computed(() => {
+    return allMenuItems.filter((item) => can(item.permission));
+});
 
 // Verificar si la ruta está activa
 const isActiveRoute = (routeName) => {
@@ -224,7 +315,7 @@ const toggleLeftDrawer = () => {
 <style scoped>
 /* Layout moderno */
 .modern-layout {
-    background: #F8F9FA;
+    background: #f8f9fa;
 }
 
 /* Header moderno - Sin bordes */
@@ -240,8 +331,8 @@ const toggleLeftDrawer = () => {
 
 /* Drawer moderno - Blanco con borde derecho */
 .modern-drawer {
-    background: #FFFFFF !important;
-    border-right: 1px solid #E0E0E0 !important;
+    background: #ffffff !important;
+    border-right: 1px solid #e0e0e0 !important;
     box-shadow: none !important;
 }
 
@@ -261,7 +352,7 @@ const toggleLeftDrawer = () => {
 }
 
 .sidebar-header .q-btn:hover {
-    background: #F5F5F5;
+    background: #f5f5f5;
     transform: rotate(90deg);
 }
 
@@ -271,39 +362,44 @@ const toggleLeftDrawer = () => {
     margin: 4px 0;
     padding: 12px 16px;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    color: #4CAF50 !important;
+    color: #4caf50 !important;
 }
 
 .menu-item:hover {
-    background: #F1F8F4 !important;
+    background: #f1f8f4 !important;
     transform: translateX(4px);
 }
 
 /* Item activo - Fondo verde con texto blanco */
 .menu-item-active {
-    background: linear-gradient(135deg, #4CAF50 0%, #66BB6A 100%) !important;
-    color: #FFFFFF !important;
+    background: linear-gradient(135deg, #4caf50 0%, #66bb6a 100%) !important;
+    color: #ffffff !important;
     box-shadow: 0 4px 12px rgba(76, 175, 80, 0.25);
     transform: translateX(4px);
 }
 
+/* Fix para hover en item activo */
+.menu-item-active:hover {
+    background: linear-gradient(135deg, #43a047 0%, #5cb860 100%) !important;
+}
+
 .menu-item-active :deep(.q-icon),
 .menu-item-active :deep(.q-item__label) {
-    color: #FFFFFF !important;
+    color: #ffffff !important;
 }
 
 /* Iconos del menú */
 .menu-item :deep(.q-icon) {
-    color: #4CAF50;
+    color: #4caf50;
 }
 
 .menu-item-active :deep(.q-icon) {
-    color: #FFFFFF !important;
+    color: #ffffff !important;
 }
 
 /* Container de páginas */
 .modern-page-container {
-    background: #F8F9FA;
+    background: #f8f9fa;
 }
 
 /* Items redondeados en menú de usuario */
@@ -313,7 +409,7 @@ const toggleLeftDrawer = () => {
 }
 
 .rounded-item:hover {
-    background: #F8F9FA;
+    background: #f8f9fa;
 }
 
 /* Mejoras visuales */
@@ -327,7 +423,7 @@ const toggleLeftDrawer = () => {
 
 /* Separadores más sutiles */
 :deep(.q-separator) {
-    background: #E9ECEF;
+    background: #e9ecef;
 }
 
 /* Sombras sutiles para avatares */

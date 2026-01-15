@@ -94,27 +94,46 @@
                             align="left"
                         >
                             <q-tab name="tipos_documento" icon="badge" label="Tipos de Documento" />
+                            <q-tab name="cargos" icon="work" label="Cargos" />
                             <q-tab name="especialidades" icon="medical_services" label="Especialidades" />
+                            <q-tab name="empleados" icon="people" label="Empleados" />
+                            <q-tab name="asignaciones" icon="account_tree" label="Asignaciones" />
+                            <q-tab name="productos" icon="inventory_2" label="Productos" />
+                            <q-tab name="comisiones" icon="payments" label="Conf. Comisiones" />
                             <q-tab name="categorias" icon="category" label="Categorías" />
                         </q-tabs>
 
                         <q-separator />
 
                         <q-tab-panels v-model="tab" animated>
-                            <!-- TAB: Tipos de Documento -->
                             <q-tab-panel name="tipos_documento">
                                 <TiposDocumento />
                             </q-tab-panel>
 
-                            <!-- TAB: Especialidades -->
-                            <q-tab-panel name="especialidades">
-                                <div class="text-center q-pa-xl">
-                                    <q-icon name="construction" size="64px" color="grey-5" />
-                                    <div class="text-h6 text-grey-6 q-mt-md">Próximamente</div>
-                                </div>
+                            <q-tab-panel name="cargos">
+                                <Cargos />
                             </q-tab-panel>
 
-                            <!-- TAB: Categorías -->
+                            <q-tab-panel name="especialidades">
+                                <Especialidades />
+                            </q-tab-panel>
+
+                            <q-tab-panel name="empleados">
+                                <Empleados />
+                            </q-tab-panel>
+
+                            <q-tab-panel name="asignaciones">
+                                <AsignacionesComponent />
+                            </q-tab-panel>
+
+                            <q-tab-panel name="productos" class="q-pa-none">
+                                <ProductosComponent />
+                            </q-tab-panel>
+
+                            <q-tab-panel name="comisiones" class="q-pa-none">
+                                <ComisionesComponent />
+                            </q-tab-panel>
+
                             <q-tab-panel name="categorias">
                                 <div class="text-center q-pa-xl">
                                     <q-icon name="construction" size="64px" color="grey-5" />
@@ -133,6 +152,12 @@
 import { ref } from 'vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import TiposDocumento from './Components/TiposDocumentoComponent.vue';
+import Cargos from './Components/CargosComponent.vue';
+import Especialidades from './Components/EspecialidadesComponent.vue';
+import Empleados from './Components/EmpleadosComponent.vue';
+import AsignacionesComponent from './Components/AsignacionesComponent.vue';
+import ProductosComponent from "@/Pages/Configuracion/Components/ProductosComponent.vue";
+import ComisionesComponent from "@/Pages/Configuracion/Components/ComisionesComponent.vue";
 import { Head } from '@inertiajs/vue3';
 
 const tab = ref('tipos_documento');
